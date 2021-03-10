@@ -1,7 +1,7 @@
 {
-  "name": "api-zhirrr",
+  "name": "ngonsol-api",
   "version": "1.1.0",
-  "description": "My Rest Api Projectttttt",
+  "description": "Api Public Project",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
