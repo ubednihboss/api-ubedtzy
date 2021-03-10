@@ -5,14 +5,14 @@ var __path = process.cwd(),
 // Connection URL
 var url = '';
 try {
-if(url == '') throw console.log(color('Cek konfigurasi database, var url belum diisi','red'));
+if(url == '') throw console.log(color('Cek konfigurasi database, var url belum diisi Tod!','red'));
 } catch (e) {
 	return;
 	}
 var db = monk(url);
 
 db.then(() => {
-  console.log(color('Connected correctly to server, ZhirrrGanss','green'))
+  console.log(color('Connected correctly to server, MiKako ID','green'))
 })
 .catch ((e) => {
 	console.log(color('Error : '+ e +'\n\nGagal connect ke database, \ncek configurasi database apakah Connection URL sudah benar','red'))
