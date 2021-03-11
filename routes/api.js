@@ -835,7 +835,7 @@ router.get('/infogempa', async (req, res, next) => {
 		})
 })
 
-const ytmus = require('express').Router();
+/*const ytmus = require('express').Router();
 const puppeteer = require("puppeteer");
 var apikeyInput = req.query.apikey
 if (!apikeyInput) return res.json(loghandler.notparam)
@@ -861,8 +861,8 @@ async function ytMusic(URL) {
     let getVideo = await page.$eval('#download > div > div > a', (element) => {
         return element.getAttribute('href');
     });
- /* let titleInfo = await page.$eval('body > div:nth-child(1) > div:nth-child(4) > div > div.col-md-9 > p:nth-child(1)', el => el.innerText);
-    let sizeInfo = await page.$eval('body > div:nth-child(1) > div:nth-child(4) > div > div.col-md-9 > p:nth-child(2)', el => el.innerText); */
+  let titleInfo = await page.$eval('body > div:nth-child(1) > div:nth-child(4) > div > div.col-md-9 > p:nth-child(1)', el => el.innerText);
+    let sizeInfo = await page.$eval('body > div:nth-child(1) > div:nth-child(4) > div > div.col-md-9 > p:nth-child(2)', el => el.innerText); 
 	browser.close();
     return { getImages, getVideo, }
 }
@@ -871,6 +871,6 @@ ytmus.get('/ytmus', async (req, res) => {
     var URL = req.query.URL;
     const gets = await ytMusic(URL);
     res.json(gets)
-});
+});*/ //GAGAL CUK
 
 module.exports = router
