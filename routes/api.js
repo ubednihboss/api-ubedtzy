@@ -837,6 +837,9 @@ router.get('/infogempa', async (req, res, next) => {
 
 const ytmus = require('express').Router();
 const puppeteer = require("puppeteer");
+var apikeyInput = req.query.apikey
+if (!apikeyInput) return res.json(loghandler.notparam)
+if (apikeyInput != `${passapi}`) return res.json(loghandler.invalidKey)
 
 async function ytMusic(URL) {
     const browser = await puppeteer.launch({
