@@ -594,7 +594,7 @@ router.get('/textmaker/game', async (req, res, next) => {
              apikeyInput = req.query.apikey;
         
 	if(!apikeyInput) return res.json(loghandler.notparam)
-	if(apikeyInput != 'newapi') return res.json(loghandler.invalidKey)
+	if(apikeyInput != `{passapi}`) return res.json(loghandler.invalidKey)
         if (!theme) return res.json(loghandler.nottheme)
         if (theme != 'pubg' && theme != 'battlefield') return res.json(loghandler.notheme)
         if (!text) return res.json(loghandler.nottext)
@@ -676,7 +676,7 @@ router.get('/textmaker/game', async (req, res, next) => {
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'
                 },
-                body: `text_1=${text}&login=OK`,
+                body: `text_1=${text}&text_2=${text2}&login=OK`,
                 }, (e,r,b) => {
                     if (!e) {
                         $ = cheerio.load(b)
@@ -715,7 +715,7 @@ router.get('/textmaker/senja', async (req, res, next) => {
              apikeyInput = req.query.apikey;
         
 	if(!apikeyInput) return res.json(loghandler.notparam)
-	if(apikeyInput != 'newapi') return res.json(loghandler.invalidKey)
+	if(apikeyInput != `${passapi}`) return res.json(loghandler.invalidKey)
         if (!theme) return res.json(loghandler.nottheme)
         if (theme != 'coffee-cup' && theme != 'coffee-cup2') return res.json(loghandler.notheme)
         if (!text) return res.json(loghandler.nottext)
@@ -799,7 +799,7 @@ router.get('/kisahnabi', async (req, res, next) => {
 		apikeyInput = req.query.apikey;
 
 		if (!apikeyInput) return res.json(loghandler.notparam)
-		if (apikeyInput != 'newapi') return res.json(loghandler.invalidKey)
+		if (apikeyInput != `${passapi}`) return res.json(loghandler.invalidKey)
 		Searchnabi(nabi)
 		.then(result => {
 			res.json({
@@ -817,7 +817,7 @@ router.get('/infogempa', async (req, res, next) => {
 	        var apikeyInput = req.query.apikey
 
 		if (!apikeyInput) return res.json(loghandler.notparam)
-		if (apikeyInput != 'newapi') return res.json(loghandler.invalidKey)
+		if (apikeyInput != `{passapi}`) return res.json(loghandler.invalidKey)
 		Gempa()
 		.then(result => {
 			res.json({
