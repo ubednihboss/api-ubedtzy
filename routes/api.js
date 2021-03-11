@@ -391,7 +391,7 @@ router.get('/short/tiny', async (req, res, next) => {
         url = req.query.url
 
 	if(!apikeyInput) return res.json(loghandler.notparam)
-	if(apikeyInput != `{passapi}`) return res.json(loghandler.invalidKey)
+	if(apikeyInput != `${passapi}`) return res.json(loghandler.invalidKey)
      if (!url) return res.json(loghandler.noturl)
 
      request(`https://tinyurl.com/api-create.php?url=${url}`, function (error, response, body) {
@@ -594,9 +594,9 @@ router.get('/textmaker/game', async (req, res, next) => {
              apikeyInput = req.query.apikey;
         
 	if(!apikeyInput) return res.json(loghandler.notparam)
-	if(apikeyInput != `{passapi}`) return res.json(loghandler.invalidKey)
+	if(apikeyInput != `${passapi}`) return res.json(loghandler.invalidKey)
         if (!theme) return res.json(loghandler.nottheme)
-        if (theme != 'pubg' && theme != 'battlefield') return res.json(loghandler.notheme)
+        if (theme != 'pubg' && theme != 'battlefield' && theme != 'ranklol') return res.json(loghandler.notheme)
         if (!text) return res.json(loghandler.nottext)
 
         if (theme == 'pubg') {
@@ -638,6 +638,8 @@ router.get('/textmaker/game', async (req, res, next) => {
                 res.json(loghandler.error)
                 }
         } else if (theme == 'battlefield') {
+		if(!apikeyInput) return res.json(loghandler.notparam)
+		if(apikeyInput != `${passapi}`) return res.json(loghandler.invalidKey)
         	if (!text2) return res.json(loghandler.nottext2)
             request.post({
                 url: "https://photooxy.com/fps-game-effect/create-battlefield-4-rising-effect-152.html",
@@ -671,6 +673,8 @@ router.get('/textmaker/game', async (req, res, next) => {
                     }
                 }) 
         } else if (theme == 'ranklol') {
+		if(!apikeyInput) return res.json(loghandler.notparam)
+		if(apikeyInput != `${passapi}`) return res.json(loghandler.invalidKey)
             request.post({
                 url: "https://photooxy.com/league-of-legends/create-avatar-lol-with-your-rank-151.html",
                 headers: {
@@ -817,7 +821,7 @@ router.get('/infogempa', async (req, res, next) => {
 	        var apikeyInput = req.query.apikey
 
 		if (!apikeyInput) return res.json(loghandler.notparam)
-		if (apikeyInput != `{passapi}`) return res.json(loghandler.invalidKey)
+		if (apikeyInput != `${passapi}`) return res.json(loghandler.invalidKey)
 		Gempa()
 		.then(result => {
 			res.json({
