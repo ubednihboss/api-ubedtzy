@@ -11,3 +11,5 @@ var passapi = 'newapi'
 router.get('/igstalk', (req, res, next) => {
     res.sendFile(__path + '/views/igstalk.html')
 })
+
+module.exports = router
