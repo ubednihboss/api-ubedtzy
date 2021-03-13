@@ -339,6 +339,59 @@ router.get('/tiktod/stalk', async (req, res, next) => {
          })
 })
 
+router.get('/igdown', async (req, res, next) => {
+    	var apikeyInput = req.query.apikey,
+        url = req.query.url
+
+    if(!apikeyInput) return res.json(loghandler.notparam)
+	if(apikeyInput != `${passapi}`) return res.json(loghandler.invalidKey)
+     if (!url) return res.json(loghandler.noturl)
+
+    var str = url
+    var potong = str.split('?')
+    var graph = "?__a=1"
+    var potong2 = potong[0] + graph
+
+    fetch(encodeURI(potong2))
+        .then(response => response.json())
+        .then(data => {
+            var validasi = data["graphql"]["shortcode_media"]["__typename"];
+            if (validasi == "GraphVideo") {
+                var link = data.graphql.shortcode_media.video_url;
+                res.json({
+                    status: true,
+                    creator: `${creator}`,
+                    result: {
+                        type: "Video",
+                        url: link
+                    },
+                    message: "jangan lupa follow" + creator
+                })
+            } else if (validasi == "GraphImage") {
+                var link = data.graphql.shortcode_media.display_url;
+                res.json({
+                    status: true,
+                    creator: `${creator}`,
+                    result: {
+                        type: "Picture",
+                        url: link
+                    },
+                    message: "jangan lupa follow" + creator
+                })
+            } else {
+                res.json({
+                    status: false,
+                    creator: `${creator}`,
+                    message: "mungkin terjadi error"
+                })
+            }
+        })
+        .catch(e => {
+            console.log('Error:', color(e,'red'))
+            res.json({status:false,creator: `${creator}`, message: "gagal, pastikan url anda benar:)"})
+       })
+})
+
 router.get('/randomquote', async (req, res, next) => {
         var apikeyInput = req.query.apikey
             
@@ -359,6 +412,107 @@ router.get('/randomquote', async (req, res, next) => {
 })
 })
 
+router.get('/igstalk', async (req, res, next) => {
+    var apikeyInput = req.query.apikey,
+        username = req.query.username
+
+	if(!apikeyInput) return res.json(loghandler.notparam)
+	if(apikeyInput != `${passapi}`) return res.json(loghandler.invalidKey)
+        if (!username) return res.json(loghandler.notusername)
+
+    fetch(encodeURI(`https://www.instagram.com/${username}/?__a=1`))
+        .then(response => response.json())
+        .then(data => {
+             var bisnis_or = data.graphql.user.is_business_account == false ? "bukan bisnis": "ini bisnis"
+             var verif_or =  data.graphql.user.is_verified == false ? "belum verified / centang biru": "sudah verified / centang biru"
+             var response = {
+                 status: true,
+                 creator: `${creator}`,
+                 result: {
+                      username: `${data.graphql.user.username}`,
+                      name: `${data.graphql.user.full_name}`,
+                      biodata: `${data.graphql.user.biography}`,
+                      followers: `${data.graphql.user.edge_followed_by.count}`,
+                      following:`${data.graphql.user.edge_follow.count}`,
+                      verified: verif_or,
+                      business_account: bisnis_or,
+                      post: `${data.graphql.user.edge_owner_to_timeline_media.count}`,
+                      profile_picture: `${data.graphql.user.profile_pic_url}`,
+                      profile_picture_hd: `${data.graphql.user.profile_pic_url_hd}`,
+                 },
+                 message: `jangan lupa follow ${creator}`
+             }
+             res.json(response)
+        })
+})
+
+router.get('/randomloli', (req, res, next) => {
+    var apikey = req.query.apikey
+
+    if(!apikeyInput) return res.json(loghandler.notparam)
+if(apikeyInput != `${passapi}`) return res.json(loghandler.invalidKey)
+
+    try {
+        var options = {
+            url: "http://results.dogpile.com/serp?qc=images&q= " + "Loli",
+            method: "GET",
+            headers: {
+                "Accept": "text/html",
+                "User-Agent": "Chrome"
+            }
+        }
+
+        request(options, function(error, response, responseBody) {
+            if (error) return
+
+            $ = cheerio.load(responseBody)
+            var links = $(".image a.link")
+            var cari = new Array(links.length).fill(0).map((v, i) => links.eq(i).attr("href"))
+
+            if (!cari.length) return
+            var hasil = cari[Math.floor(Math.random() * cari.length)]
+
+            res.json({
+                status : true,
+                creator : `${creator}`,
+                result : {
+                    image : 'mme',
+                },
+                message : `jangan lupa follow ${creator}`})
+            })
+    } catch (e) {}
+})
+
+router.get('/text2img', async (req, res, next) => {
+	var apikeyInput = req.query.apikey,
+	text = req.query.text;
+	 if(!apikeyInput) return res.json(loghandler.notparam)
+	if(apikeyInput != `${passapi}`) return res.json(loghandler.invalidKey)
+     if (!text) return res.json(loghandler.nottext)
+	request(`http://api.img4me.com/?text=${text}&font=arial&fcolor=000000&size=35&type=png`, function (error, response, body) {
+         try {
+         	fetch(encodeURI(`https://api.imgbb.com/1/upload?expiration=120&key=28dd175b555860ab2b5cdfedf125fe38&image=${body}&name=${randomTextNumber}`))
+                                .then(response => response.json())
+                                .then(data => {
+                 var urlnya = data.data.url,
+                                     delete_url = data.data.delete_url;
+             res.json({
+                 status : true,
+                 creator : `${creator}`,
+                 result : {
+                 	text : text,
+                     url : urlnya,
+                     delete_url : delete_url,
+                 },
+                 message : `jangan lupa follow ${creator}`
+             })
+             })
+         } catch (e) {
+             console.log('Error :', color(e,'red'))
+             res.json(loghandler.error)
+         }
+     })
+ })
 
 router.get('/infonpm', async (req, res, next) => {
         var apikeyInput = req.query.apikey,
