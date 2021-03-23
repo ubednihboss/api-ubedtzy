@@ -167,7 +167,7 @@ router.get('/find', async (req, res, next) => {
     if (apikey != `${passapi}`) return res.json(loghandler.invalidKey)
 
     try {
-        ubedtzy.find()
+        zahirr.find()
             .then(result => {
                 res.json({
                     status: true,
