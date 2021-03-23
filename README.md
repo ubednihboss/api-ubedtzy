@@ -2,7 +2,7 @@
  
 # Source Codes - UbedTzy API
 <p align="center">
-<a href="https://github.com/ubednihboss"><img title="Author" src="https://img.shields.io/badge/Author-Zhirrr-orange.svg?style=for-the-badge&logo=github"></a>
+<a href="https://github.com/ubednihboss"><img title="Author" src="https://img.shields.io/badge/Author-UbedTzy-orange.svg?style=for-the-badge&logo=github"></a>
 </p>
 <p align='center'>
    <a href="https://wa.me/6281358679254"><img height="30" src="https://c.top4top.io/p_1837yybbf0.jpeg"></a>&nbsp;&nbsp;
