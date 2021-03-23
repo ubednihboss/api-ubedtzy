@@ -3,12 +3,12 @@ __path = process.cwd()
 var express = require('express');
 var db = require(__path + '/database/db');
 try {
-var zahirr = db.get("zahirr");
+var UbedTzy = db.get("UbedTzy");
 } catch (e) {
 	console.log('')
 }
 
-var creatorList = ['@Mikako','@Taufik-Kun','@Fico', '@FicoShop'];
+var creatorList = ['@JawaraSlurd' , '@UbedTzy'];
 var creator = creatorList[Math.floor(Math.random() * creatorList.length)];
 var passapi = 'newapi'
 
@@ -41,8 +41,8 @@ loghandler = {
         creator: `${creator}`,
         code: 406,
         message: 'masukan parameter apikey',
-        getApikey: 'gak punya apikey? chat gw aja yaaa di wa.me/6289675651966 atau wa.me/6285864236900 , key nya gratis kok gan, jadi santuyy ajaa'
-    },
+        getApikey: 'gak punya apikey? chat gw aja yaaa di wa.me/6281358679254'
+    },p
     notkey: {
         status: false,
         creator: `${creator}`,
@@ -113,7 +113,7 @@ loghandler = {
         status: false,
         creator: `${creator}`,
         code: 406,
-        message: 'apikey invalid, gak punya apikey? chat gw aja yaaa di wa.me/6289675651966 atau wa.me/6285864236900 , key nya gratis kok gan, jadi santuyy ajaa'
+        message: 'apikey invalid, gak punya apikey? chat gw aja yaaa di wa.me/6281358679254'
     },
     invalidlink: {
         status: false,
@@ -157,7 +157,7 @@ var len = 15
         
  
  async function cekApiKey(api) {
- 	ap = await zahirr.findOne({apikey:api})
+ 	ap = await ubedtzy.findOne({apikey:api})
  return ap;
  }
 router.get('/find', async (req, res, next) => {
@@ -167,7 +167,7 @@ router.get('/find', async (req, res, next) => {
     if (apikey != `${passapi}`) return res.json(loghandler.invalidKey)
 
     try {
-        zahirr.find()
+        ubedtzy.find()
             .then(result => {
                 res.json({
                     status: true,
